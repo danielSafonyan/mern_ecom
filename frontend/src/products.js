@@ -1,0 +1,52 @@
+const products = [
+    {
+        _id: 1,
+        name: 'Airpods',
+        image: 'images/airpods.jpg',
+        desciption: 'Bluetooth Airpods',
+        brand: 'Apple',
+        category: 'Electronics',
+        price: 89.9,
+        countInStock: 10,
+        rating: 4.5,
+        numReviews: 12,
+    },
+    {
+        _id: 2,
+        name: 'phone',
+        image: 'images/phone.jpg',
+        desciption: 'Bluetooth phone',
+        brand: 'Apple',
+        category: 'Electronics',
+        price: 89.9,
+        countInStock: 10,
+        rating: 4.5,
+        numReviews: 12,
+    },
+    {
+        _id: 3,
+        name: 'alexa',
+        image: 'images/alexa.jpg',
+        desciption: 'Bluetooth alexa',
+        brand: 'Apple',
+        category: 'Electronics',
+        price: 89.9,
+        countInStock: 10,
+        rating: 4.5,
+        numReviews: 12,
+    },
+    {
+        _id: 4,
+        name: 'camera',
+        image: 'images/camera.jpg',
+        desciption: 'Bluetooth camera',
+        brand: 'Apple',
+        category: 'Electronics',
+        price: 89.9,
+        countInStock: 10,
+        rating: 4.5,
+        numReviews: 12,
+    }
+]
+
+export default products
