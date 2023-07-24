@@ -1,11 +1,19 @@
 import { useParams, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import products from '../products'
 
 const ProductScreen = () => {
     const { id: productId } = useParams() 
-    const product = products.find(el => el._id === Number(productId))
+    const [product, setProduct] = useState(null)
+    useEffect(() => {
+        fetch(`/api/products/${productId}`)
+            .then(res => res.json())
+            .then(data => setProduct(data))
+    }, [])
+    if (!product) {
+        return <h2>Loading product.</h2>
+    }
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>Go back</Link>
