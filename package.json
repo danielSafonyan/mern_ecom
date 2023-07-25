@@ -5,6 +5,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
+    "populate": "node backend/data/seeder.js",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
@@ -21,10 +22,12 @@
   },
   "homepage": "https://github.com/danielSafonyan/mern_ecom#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "concurrently": "^8.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "mongoose": "^7.4.1",
     "nodemon": "^3.0.1"
   }
 }
