@@ -24,28 +24,20 @@ async function connectDB() {
 
 async function populateUsers() {
     try {
-        let admin;
-        for (const el of users) {
-                const user = await User.create(el);
-                console.log("Created user", user);
-                if (el.name === 'Admin User') {
-                    admin = user
-                }
-            }
-            console.log("Populated users.");
-            populateProdcuts(admin)
+        await User.insertMany(users)
+        console.log("Populated users.");
+        populateProdcuts()
     } catch (err) {
         console.log("Error when populating users:", err)
     }
 
 }
 
-async function populateProdcuts(admin) {
+async function populateProdcuts() {
     try {
-        for (const el of products) {
-            const product = await Product.create({...el, user: admin._id, reviews: []})
-            console.log("Created product", product);
-        }
+        const admin = await User.findOne({name: 'Admin User'})
+        const sampleProducts = products.map(product => ({...product, user: admin._id, reviews: []}))
+        await Product.insertMany(sampleProducts)
         console.log("Populated products.");
         populateReviews()
     } catch (err) {
@@ -56,31 +48,26 @@ async function populateProdcuts(admin) {
 async function populateReviews() {
     const products = await Product.find()
     const users = await User.find()
+    const promises = []
+    for (let userIndex = 0, productIndex = 0; reviews.length > 0; userIndex++, productIndex++) {
+        if (userIndex === users.length) { userIndex = 0};
+        if (productIndex === products.length) { productIndex = 0};
 
-    for (let i = 0, j = 0; reviews.length; i++, j++) {
-        if (i === users.length) { i = 0};
-        if (j === products.length) { j = 0};
-        if (users[i].name === 'Admin User') { 
-            j--;
+        const user = users[userIndex]
+        const product = products[productIndex]
+
+
+        if (user.name === 'Admin User') { 
+            productIndex--;
             continue;
         };
 
-        try {
-            const review = await Review.create({...reviews.pop(), name: users[i].name, user: users[i]._id})
-            await products[j].reviews.push(review)
-            await products[j].save()
-            console.log(`User ${i} posts review to product${j}.`)
-        } catch (err) {
-            console.log("Error while adding a review to proudcts:", err)
-        }
+
+        const reviewData = {...reviews.pop(), name: user.name, user: user._id}
+        const review = await Review.create(reviewData)
+        await product.reviews.push(review);
+        await product.save();
     }
 
-    console.log("Reviews finished.")
+    console.log("Reviews finished.");
 }
-
-
-
-// const allUsers = await User.find()
-// console.log('allUsers', allUsers)
-// const allProducts = await Product.find()
-// console.log('allProducts', allProducts)
