@@ -29,6 +29,6 @@ const productSchema = new mongoose.Schema({
 )
 
 const productModel = mongoose.model('Product', productSchema)
-const reviewtModel = mongoose.model('Review', reviewSchema)
+const reviewModel = mongoose.model('Review', reviewSchema)
 
-export { productModel, reviewtModel }
+export { productModel, reviewModel }

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import users from './users.js'
 import products from './products.js'
 import reviews from './reviews.js'
-import {productModel as Product, reviewtModel as Review} from "../models/productModel.js";
+import {productModel as Product, reviewModel as Review} from "../models/productModel.js";
 import User from "../models/userModel.js";
 import { truncate } from "fs";
 
